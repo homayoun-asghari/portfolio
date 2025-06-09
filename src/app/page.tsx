@@ -1,6 +1,8 @@
 'use client';
 
-import { FiGithub, FiLinkedin, FiMail, FiArrowRight } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiCode, FiMessageSquare } from 'react-icons/fi';
+import ProjectCard from '@/components/ProjectCard';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -21,19 +23,20 @@ export default function Home() {
               web applications.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
+              <Link
                 href="#projects"
                 className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >
+                <FiCode className="w-5 h-5" />
                 View My Work
-                <FiArrowRight className="w-5 h-5" />
-              </a>
-              <a
-                href="#contact"
-                className="px-8 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
               >
+                <FiMessageSquare className="w-5 h-5" />
                 Contact Me
-              </a>
+              </Link>
             </div>
             
             {/* Social Links */}
@@ -85,6 +88,62 @@ export default function Home() {
               activities.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">My Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ProjectCard
+              title="Project 1"
+              description="A modern web application built with Next.js and TypeScript that showcases my skills in frontend development."
+              tags={["Next.js", "TypeScript", "Tailwind CSS"]}
+              githubLink="#"
+              liveLink="#"
+            />
+            <ProjectCard
+              title="E-commerce Store"
+              description="Full-stack e-commerce platform with product listings, cart functionality, and secure checkout."
+              tags={["React", "Node.js", "MongoDB"]}
+              githubLink="#"
+              liveLink="#"
+            />
+            <ProjectCard
+              title="Task Management App"
+              description="A productivity application for managing tasks with drag-and-drop functionality and team collaboration."
+              tags={["React", "Firebase", "Redux"]}
+              githubLink="#"
+              liveLink="#"
+            />
+          </div>
+          <div className="text-center mt-12">
+            <Link
+              href="#"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+            >
+              View All Projects
+              <FiArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-blue-600 dark:bg-blue-800 text-white">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-6">Have a project in mind?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            I&apos;m always open to discussing product design work or partnership opportunities.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-blue-600 dark:hover:text-blue-800 transition-colors"
+          >
+            <FiMessageSquare className="mr-2 h-5 w-5" />
+            Get In Touch
+          </Link>
         </div>
       </section>
     </main>
