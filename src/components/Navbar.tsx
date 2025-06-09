@@ -2,48 +2,29 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode();
+  const pathname = usePathname();
+  const router = useRouter();
 
+  // Handle scroll effect for navbar
   useEffect(() => {
-    // Check for dark mode preference
-    if (typeof window !== 'undefined') {
-      const isDark = localStorage.theme === 'dark' || 
-                   (!('theme' in localStorage) && 
-                    window.matchMedia('(prefers-color-scheme: dark)').matches);
-      setDarkMode(isDark);
-      
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-
-    // Handle scroll effect
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
+    // Only add event listener on client side
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
     }
-  };
+  }, []);
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -51,6 +32,50 @@ export default function Navbar() {
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  // Handle navigation with smooth scroll for hash links
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    isMobile: boolean = false
+  ) => {
+    e.preventDefault();
+    
+    // Close mobile menu if open
+    if (isMobile) {
+      setIsOpen(false);
+    }
+    
+    // Handle hash links
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      
+      // If we're on the home page, scroll to the section
+      if (pathname === '/') {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // If we're on a different page, navigate to home with hash
+        router.push(`/#${targetId}`);
+      }
+    } else {
+      // Regular navigation
+      router.push(href);
+    }
+  };
+  
+  // Check if a nav item is active
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    } else if (href.startsWith('#')) {
+      if (typeof window === 'undefined') return false;
+      return pathname === '/' && window.location.hash === href;
+    }
+    return pathname === href;
+  };
 
   return (
     <header 
@@ -76,7 +101,10 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                onClick={(e) => handleNavigation(e, item.href)}
+                className={`text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium ${
+                  isActive(item.href) ? 'text-blue-600 dark:text-blue-400' : ''
+                }`}
               >
                 {item.name}
               </Link>
@@ -118,8 +146,10 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavigation(e, item.href, true)}
+                  className={`block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors ${
+                    isActive(item.href) ? 'text-blue-600 dark:text-blue-400' : ''
+                  }`}
                 >
                   {item.name}
                 </Link>
