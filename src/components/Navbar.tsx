@@ -3,13 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
-import { useDarkMode } from '@/hooks/useDarkMode';
+import { FiMenu, FiX} from 'react-icons/fi';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { darkMode, toggleDarkMode } = useDarkMode();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -92,7 +90,7 @@ export default function Navbar() {
             href="/" 
             className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
           >
-            YourName
+            Homayoun Asghari
           </Link>
 
           {/* Desktop Navigation */}
@@ -109,24 +107,11 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
-            </button>
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors mr-2"
-              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
-            </button>
+            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
