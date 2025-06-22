@@ -1,5 +1,4 @@
 // app/api/contact/route.ts
-import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 // Email configuration for Zoho Mail
@@ -27,60 +26,76 @@ const smtpConfig = {
   logger: process.env.NODE_ENV === 'development' // Log to console in development
 };
 
-// Only allow POST requests
-export async function POST(request: Request) {
-  // Set CORS headers
+// Define response data type
+interface JsonResponseData {
+  success: boolean;
+  message: string;
+  [key: string]: unknown;
+}
+
+// Helper function to create a JSON response with CORS headers
+function jsonResponse(data: JsonResponseData, status: number = 200) {
   const headers = new Headers();
+  headers.set('Content-Type', 'application/json');
   headers.set('Access-Control-Allow-Origin', '*');
   headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
-  // Handle OPTIONS method for CORS preflight
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers });
-  }
-  
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: Object.fromEntries(headers.entries())
+  });
+}
+
+// Handle OPTIONS method for CORS preflight
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    }
+  });
+}
+
+// Handle POST requests
+export async function POST(request: Request) {
   // Only allow POST method
   if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ 
+    return jsonResponse({ 
       success: false, 
       message: 'Method not allowed' 
-    }), { 
-      status: 405, 
-      headers: {
-        ...Object.fromEntries(headers.entries()),
-        'Content-Type': 'application/json'
-      } 
-    });
+    }, 405);
   }
   const { name, email, message } = await request.json();
 
   // Input validation
   if (!name || !email || !message) {
-    return NextResponse.json(
+    return jsonResponse(
       { success: false, message: "Please fill all fields" },
-      { status: 400 }
+      400
     );
   }
 
   // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return NextResponse.json(
+    return jsonResponse(
       { success: false, message: "Please enter a valid email address" },
-      { status: 400 }
+      400
     );
   }
 
   // Check if required environment variables are set
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.CONTACT_EMAIL) {
     console.error('Missing email configuration. Please set up your .env.local file with SMTP settings.');
-    return NextResponse.json(
+    return jsonResponse(
       { 
         success: false, 
         message: "Server configuration error. Please try again later or contact the administrator." 
       },
-      { status: 500 }
+      500
     );
   }
 
@@ -125,7 +140,7 @@ export async function POST(request: Request) {
     // Log successful email sending
     console.log(`Email sent successfully to ${process.env.CONTACT_EMAIL}`);
     
-    return NextResponse.json({ 
+    return jsonResponse({ 
       success: true, 
       message: "Thank you for your message! I'll get back to you soon." 
     });
@@ -148,12 +163,12 @@ export async function POST(request: Request) {
       }
     }
     
-    return NextResponse.json(
+    return jsonResponse(
       { 
         success: false, 
         message: errorMessage 
       },
-      { status: 500 }
+      500
     );
   }
 }
