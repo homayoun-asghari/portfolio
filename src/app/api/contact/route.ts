@@ -27,7 +27,32 @@ const smtpConfig = {
   logger: process.env.NODE_ENV === 'development' // Log to console in development
 };
 
+// Only allow POST requests
 export async function POST(request: Request) {
+  // Set CORS headers
+  const headers = new Headers();
+  headers.set('Access-Control-Allow-Origin', '*');
+  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle OPTIONS method for CORS preflight
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers });
+  }
+  
+  // Only allow POST method
+  if (request.method !== 'POST') {
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: 'Method not allowed' 
+    }), { 
+      status: 405, 
+      headers: {
+        ...Object.fromEntries(headers.entries()),
+        'Content-Type': 'application/json'
+      } 
+    });
+  }
   const { name, email, message } = await request.json();
 
   // Input validation
