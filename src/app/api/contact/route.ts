@@ -1,5 +1,13 @@
 // app/api/contact/route.ts
+import { NextResponse } from 'next/server';
 import nodemailer from "nodemailer";
+
+// This is needed for CORS in Next.js 13+ App Router
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
 
 // Email configuration for Zoho Mail
 // Make sure these environment variables are set in .env.local
@@ -35,33 +43,24 @@ interface JsonResponseData {
 
 // Helper function to create a JSON response with CORS headers
 function jsonResponse(data: JsonResponseData, status: number = 200) {
-  const headers = new Headers();
-  headers.set('Content-Type', 'application/json');
-  headers.set('Access-Control-Allow-Origin', '*');
-  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
-  return new Response(JSON.stringify(data), {
+  return NextResponse.json(data, {
     status,
-    headers: Object.fromEntries(headers.entries())
+    headers: corsHeaders
   });
 }
 
 // Handle OPTIONS method for CORS preflight
 export async function OPTIONS() {
-  return new Response(null, {
+  return new NextResponse(null, {
     status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-    }
+    headers: corsHeaders
   });
 }
 
 // Handle POST requests
 export async function POST(request: Request) {
-  // Only allow POST method
+  // In Next.js App Router, this will only be called for POST requests
+  // due to the file-based routing, but we'll keep this check for safety
   if (request.method !== 'POST') {
     return jsonResponse({ 
       success: false, 

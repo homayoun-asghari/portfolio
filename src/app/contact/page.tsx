@@ -31,33 +31,32 @@ export default function ContactPage() {
     setSubmitStatus(null);
   
     try {
-      const apiUrl = '/api/contact';
-      
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
-        credentials: 'same-origin',
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Network response was not ok');
+        throw new Error(data.message || 'Something went wrong');
       }
   
-      const data = await response.json();
-  
       if (data.success) {
-        setSubmitStatus({ success: true, message: t("Contact.form.success") });
+        setSubmitStatus({ 
+          success: true, 
+          message: t("Contact.form.success") 
+        });
         setFormData({ name: "", email: "", message: "" });
       } else {
-        setSubmitStatus({ 
-          success: false, 
-          message: data.message || t("Contact.form.error") 
-        });
+        throw new Error(data.message || t("Contact.form.error"));
       }
     } catch (error) {
       console.error('Error submitting form:', error);
