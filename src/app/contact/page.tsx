@@ -31,11 +31,22 @@ export default function ContactPage() {
     setSubmitStatus(null);
   
     try {
-      const response = await fetch(`${window.location.origin}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });      
+      const apiUrl = '/api/contact';
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Network response was not ok');
+      }
   
       const data = await response.json();
   
@@ -43,10 +54,17 @@ export default function ContactPage() {
         setSubmitStatus({ success: true, message: t("Contact.form.success") });
         setFormData({ name: "", email: "", message: "" });
       } else {
-        setSubmitStatus({ success: false, message: data.message || t("Contact.form.error") });
+        setSubmitStatus({ 
+          success: false, 
+          message: data.message || t("Contact.form.error") 
+        });
       }
-    } catch {
-      setSubmitStatus({ success: false, message: t("Contact.form.error") });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus({ 
+        success: false, 
+        message: error instanceof Error ? error.message : t("Contact.form.error")
+      });
     } finally {
       setIsSubmitting(false);
     }
