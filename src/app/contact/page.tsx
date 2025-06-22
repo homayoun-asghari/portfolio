@@ -109,10 +109,10 @@ export default function ContactPage() {
                       {t("Contact.email")}
                     </p>
                     <a
-                      href="mailto:your.email@example.com"
+                      href="mailto:contact@homayoun.me"
                       className="text-blue-600 dark:text-blue-400 hover:underline"
                     >
-                      your.email@example.com
+                      contact@homayoun.me
                     </a>
                   </div>
                 </div>
