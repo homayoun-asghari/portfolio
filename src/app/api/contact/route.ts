@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from "nodemailer";
 
-// This is needed for CORS in Next.js 13+ App Router
+// CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -34,9 +34,8 @@ const smtpConfig = {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  // Zoho specific settings
   tls: {
-    rejectUnauthorized: false, // Only for development, consider proper certs in production
+    rejectUnauthorized: false, // Only for development
     ciphers: 'SSLv3'
   },
   debug: process.env.NODE_ENV === 'development',
@@ -53,6 +52,23 @@ export async function OPTIONS() {
 
 // Handle POST requests
 export async function POST(request: Request) {
+  // Handle CORS preflight
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders
+    });
+  }
+
+  // Only allow POST requests
+  if (request.method !== 'POST') {
+    return jsonResponse({ 
+      success: false, 
+      message: 'Method not allowed' 
+    }, 405);
+  }
+
+
   try {
     // Parse request body
     let body;
