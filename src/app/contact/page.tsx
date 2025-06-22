@@ -43,10 +43,20 @@ export default function ContactPage() {
         }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (err) {
+        console.error('Error parsing response:', err);
+        throw new Error('Invalid response from server');
+      }
       
       if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
+        throw new Error(data?.message || 'Something went wrong');
+      }
+      
+      if (!data?.success) {
+        throw new Error(data?.message || 'Failed to send message');
       }
   
       if (data.success) {
