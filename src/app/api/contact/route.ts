@@ -4,8 +4,7 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const { name, email, message } = body;
+  const { name, email, message } = await request.json();
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST!,
