@@ -49,7 +49,7 @@ export default function Home() {
             {/* Social Links */}
             <div className="flex justify-center gap-6 mt-12">
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/homayoun-asghari"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition-colors"
@@ -58,7 +58,7 @@ export default function Home() {
                 <FiGithub className="w-6 h-6" />
               </a>
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/homayoun-asghari-b9769912a"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
@@ -67,7 +67,7 @@ export default function Home() {
                 <FiLinkedin className="w-6 h-6" />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:contact@homayoun.me"
                 className="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
                 aria-label="Email"
               >
@@ -104,8 +104,8 @@ export default function Home() {
                 title={t("project1.title")}
                 description={t("project1.description")}
                 tags={["Next.js", "TypeScript", "Tailwind CSS"]}
-                githubLink="#"
-                liveLink="#"
+                githubLink="https://github.com/homayoun-asghari/portfolio"
+                liveLink="https://www.homayoun.me"
               />
             </div>
             <div className="w-full sm:w-[500px]">
@@ -119,8 +119,8 @@ export default function Home() {
                   "PostgreSQL",
                   "Bootstrap",
                 ]}
-                githubLink="#"
-                liveLink="#"
+                githubLink="https://github.com/homayoun-asghari/ecommerce"
+                liveLink="https://www.ecommerce.homayoun.me"
               />
             </div>
           </div>
