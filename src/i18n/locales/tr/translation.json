@@ -1,0 +1,40 @@
+{
+  "heroTitle": "Merhaba, ben Homayoun",
+  "heroSubtitle": "Full Stack Geliştirici",
+  "heroDescription": "Modern web teknolojileriyle olağanüstü dijital deneyimler geliştiriyorum. Şu anda güzel, duyarlı ve erişilebilir web uygulamaları oluşturmaya odaklanıyorum.",
+  "viewWork": "Projelerimi Gör",
+  "home": "Anasayfa",
+  "contact": "İletişime",
+  "about": "Hakkımda",
+  "aboutParagraph1": "Modern JavaScript çerçevelerinde uzman ve tasarıma duyarlı tutkulu bir web geliştiricisiyim...",
+  "aboutParagraph2": "Kod yazmadığım zamanlarda yeni teknolojileri keşfederim...",
+  "projects": "Projelerim",
+  "project1.title": "Portfolyo",
+  "project1.description": "Next.js ve TypeScript ile oluşturulmuş modern bir web uygulaması.",
+  "project2.title": "E-ticaret",
+  "project2.description": "Ürün listeleri, sepet ve güvenli ödeme ile tam yığın e-ticaret uygulaması.",
+  "ctaTitle": "Bir projeniz mi var?",
+  "ctaDescription": "Tasarım projeleri veya iş ortaklıklarını her zaman konuşmaya açığım.",
+  "ctaButton": "İletişime Geç",
+
+  "Contact": {
+    "title": "İletişime Geç",
+    "infoTitle": "İletişim Bilgileri",
+    "infoText": "Bir geliştirici arıyorsanız, sorunuz varsa veya sadece bağlantı kurmak istiyorsanız bana ulaşabilirsiniz.",
+    "email": "E-posta",
+    "location": "Konum",
+    "city": "Şehriniz, Ülkeniz",
+    "form": {
+      "name": "İsim",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "placeholderName": "Adınız",
+      "placeholderEmail": "eposta.adresiniz@example.com",
+      "placeholderMessage": "Mesajınız buraya...",
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "success": "Mesajınız başarıyla gönderildi! En kısa sürede size döneceğim.",
+      "error": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+    }
+  }
+}
