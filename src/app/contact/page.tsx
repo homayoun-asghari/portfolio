@@ -29,11 +29,22 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-
+  
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setSubmitStatus({ success: true, message: t("Contact.form.success") });
-      setFormData({ name: "", email: "", message: "" });
+      const response = await fetch(`${window.location.origin}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });      
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        setSubmitStatus({ success: true, message: t("Contact.form.success") });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus({ success: false, message: data.message || t("Contact.form.error") });
+      }
     } catch {
       setSubmitStatus({ success: false, message: t("Contact.form.error") });
     } finally {
