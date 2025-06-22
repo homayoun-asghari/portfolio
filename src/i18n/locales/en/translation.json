@@ -1,0 +1,40 @@
+{
+  "heroTitle": "Hi, I'm Homayoun",
+  "heroSubtitle": "Full Stack Developer",
+  "heroDescription": "I build exceptional digital experiences with modern web technologies. Currently focused on creating beautiful, responsive, and accessible web applications.",
+  "viewWork": "View My Work",
+  "home": "Home",
+  "contact": "Contact",
+  "about": "About",
+  "aboutParagraph1": "I'm a passionate web developer with expertise in modern JavaScript frameworks and a keen eye for design...",
+  "aboutParagraph2": "When I'm not coding, you can find me exploring new technologies...",
+  "projects": "Projects",
+  "project1.title": "Portfolio",
+  "project1.description": "A modern web application built with Next.js and TypeScript that showcases my skills.",
+  "project2.title": "E-commerce",
+  "project2.description": "Full-stack e-commerce marketplace with product listings, cart functionality, and secure checkout.",
+  "ctaTitle": "Have a project in mind?",
+  "ctaDescription": "I'm always open to discussing product design work or partnership opportunities.",
+  "ctaButton": "Get In Touch",
+
+  "Contact": {
+    "title": "Get In Touch",
+    "infoTitle": "Contact Information",
+    "infoText": "Feel free to reach out if you're looking for a developer, have a question, or just want to connect.",
+    "email": "Email",
+    "location": "Location",
+    "city": "Your City, Country",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "placeholderName": "Your name",
+      "placeholderEmail": "your.email@example.com",
+      "placeholderMessage": "Your message here...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully! I will get back to you soon.",
+      "error": "Something went wrong. Please try again later."
+    }
+  }
+}
