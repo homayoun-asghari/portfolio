@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Homayoun Asghari | Portfolio",
   description:
     "Personal portfolio showcasing my projects and skills as a web developer",
+  icons: {
+    icon: "/images/favicon.ico",
+  },
   openGraph: {
     title: "Homayoun Asghari | Portfolio",
     description:
