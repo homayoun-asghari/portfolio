@@ -105,7 +105,7 @@ export default function Home() {
                 description={t("project1.description")}
                 tags={["Next.js", "TypeScript", "Tailwind CSS"]}
                 githubLink="https://github.com/homayoun-asghari/portfolio"
-                liveLink="https://www.homayoun.me"
+                liveLink="https://homayoun.me"
               />
             </div>
             <div className="w-full sm:w-[500px]">
@@ -120,7 +120,7 @@ export default function Home() {
                   "Bootstrap",
                 ]}
                 githubLink="https://github.com/homayoun-asghari/ecommerce"
-                liveLink="https://www.ecommerce.homayoun.me"
+                liveLink="https://ecommerce.homayoun.me"
               />
             </div>
           </div>
