@@ -86,8 +86,11 @@ export default function Home() {
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               {t("aboutParagraph1")}
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               {t("aboutParagraph2")}
+            </p>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {t("aboutParagraph3")}
             </p>
           </div>
         </div>
@@ -121,6 +124,15 @@ export default function Home() {
                 ]}
                 githubLink="https://github.com/homayoun-asghari/ecommerce"
                 liveLink="https://ecommerce.homayoun.me"
+              />
+            </div>
+            <div className="w-full sm:w-[500px]">
+              <ProjectCard
+                title={t("project3.title")}
+                description={t("project3.description")}
+                tags={["In Development"]}
+                githubLink="https://github.com/homayoun-asghari"
+                liveLink="#"
               />
             </div>
           </div>
