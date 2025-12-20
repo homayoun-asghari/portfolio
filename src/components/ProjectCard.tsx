@@ -31,7 +31,7 @@ export default function ProjectCard({
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
           {title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 text-justify">{description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag, index) => (
             <span

@@ -12,6 +12,72 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Font Variables */
+:root {
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-persian: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Apply Vazirmatn for Persian language */
+html[lang="fa"] {
+  font-family: var(--font-persian);
+}
+
+/* Ensure Vazirmatn is used for Persian text */
+[lang="fa"] body {
+  font-family: var(--font-persian);
+}
+
+/* Fix for RTL in Tailwind */
+[dir="rtl"] .rtl\:text-right {
+  text-align: right;
+}
+
+[dir="rtl"] .rtl\:text-left {
+  text-align: left;
+}
+
+[dir="rtl"] .rtl\:mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .rtl\:ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+/* Smooth transitions for RTL/LTR switch */
+.rtl-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Fix for RTL in form elements */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Fix for RTL in lists */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* Fix for RTL in navigation */
+[dir="rtl"] .rtl\:space-x-reverse> :not([hidden])~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

@@ -6,13 +6,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en/translation.json';
 import tr from './locales/tr/translation.json';
+import fa from './locales/fa/translation.json';
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    supportedLngs: ['en', 'tr'],
+    supportedLngs: ['en', 'tr', 'fa'],
     detection: {
       order: ['localStorage', 'navigator'],
       caches: ['localStorage'],
@@ -20,6 +21,7 @@ i18n
     resources: {
       en: { translation: en },
       tr: { translation: tr },
+      fa: { translation: fa },
     },
     interpolation: {
       escapeValue: false,

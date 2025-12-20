@@ -130,9 +130,9 @@ export default function Home() {
               <ProjectCard
                 title={t("project3.title")}
                 description={t("project3.description")}
-                tags={["In Development"]}
+                tags={["TypeScript", "Next.js", "Supabase", "Tailwind CSS"]}
                 githubLink="https://github.com/homayoun-asghari"
-                liveLink="#"
+                liveLink="https://bosos.io"
               />
             </div>
           </div>
