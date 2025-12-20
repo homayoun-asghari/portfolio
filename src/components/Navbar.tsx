@@ -136,37 +136,7 @@ export default function Navbar() {
           </nav>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            {/* Mobile Language Switcher */}
-            <div className="relative mr-3">
-              <button
-                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
-                aria-label="Change language"
-              >
-                <FiGlobe className="h-5 w-5" />
-              </button>
-
-              {isLanguageMenuOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => changeLanguage(lang.code)}
-                      className={`block w-full text-right px-4 py-2 text-sm ${
-                        currentLanguage === lang.code
-                          ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      }`}
-                      dir={lang.code === "fa" ? "rtl" : "ltr"}
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
+          <div className="md:hidden">
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
@@ -198,16 +168,42 @@ export default function Navbar() {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Language Switcher */}
+              <div className="px-4 py-2">
+                <div className="relative">
+                  <button
+                    onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                    className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+                    aria-label="Change language"
+                  >
+                    <FiGlobe className="h-5 w-5 mr-2" />
+                    <span>{languages.find(lang => lang.code === currentLanguage)?.name}</span>
+                  </button>
 
-              <button
-                onClick={() =>
-                  changeLanguage(currentLanguage === "en" ? "tr" : "en")
-                }
-                className="mt-2 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded"
-              >
-                {currentLanguage.toUpperCase()}{" "}
-                {currentLanguage === "en" ? "Türkçe 🇹🇷" : "English 🇺🇸"}
-              </button>
+                  {isLanguageMenuOpen && (
+                    <div className="mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                      {languages.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => {
+                            changeLanguage(lang.code);
+                            setIsOpen(false);
+                          }}
+                          className={`block w-full text-left px-4 py-2 text-sm ${
+                            currentLanguage === lang.code
+                              ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          }`}
+                          dir={lang.code === "fa" ? "rtl" : "ltr"}
+                        >
+                          {lang.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </nav>
         )}
