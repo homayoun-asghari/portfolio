@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiGlobe } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n/i18n";
 
@@ -50,14 +50,32 @@ export default function Navbar() {
     return pathname === href;
   };
 
-  const currentLang = i18n.language;
-  const toggleLanguage = () =>
-    i18n.changeLanguage(currentLang === "en" ? "tr" : "en");
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const languages = [
+    { code: "en", name: "English" },
+    { code: "tr", name: "Türkçe" },
+    { code: "fa", name: "فارسی" },
+  ];
+
+  useEffect(() => {
+    setCurrentLanguage(i18n.language);
+  }, []);
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setCurrentLanguage(lng);
+    setIsLanguageMenuOpen(false);
+    // Force a re-render to update the UI with the new language
+    window.location.reload();
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <header
-      className= "fixed w-full z-50 transition-all duration-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm bg-transparent"
-    >
+    <header className="fixed w-full z-50 transition-all duration-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm bg-transparent">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -84,23 +102,80 @@ export default function Navbar() {
             ))}
 
             {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded"
-            >
-              {currentLang === "en" ? "TR 🇹🇷" : "EN 🇺🇸"}
-            </button>
+            <div className="relative ml-4">
+              <button
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+                aria-label="Change language"
+              >
+                <FiGlobe className="h-5 w-5" />
+                <span className="ml-1 text-sm">
+                  {currentLanguage.toUpperCase()}
+                </span>
+              </button>
+
+              {isLanguageMenuOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`block w-full text-right px-4 py-2 text-sm ${
+                        currentLanguage === lang.code
+                          ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      }`}
+                      dir={lang.code === "fa" ? "rtl" : "ltr"}
+                    >
+                      {lang.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
+            {/* Mobile Language Switcher */}
+            <div className="relative mr-3">
+              <button
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+                aria-label="Change language"
+              >
+                <FiGlobe className="h-5 w-5" />
+              </button>
+
+              {isLanguageMenuOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`block w-full text-right px-4 py-2 text-sm ${
+                        currentLanguage === lang.code
+                          ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      }`}
+                      dir={lang.code === "fa" ? "rtl" : "ltr"}
+                    >
+                      {lang.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
-              aria-expanded={isOpen}
-              aria-label="Toggle menu"
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
             >
-              {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+              {isOpen ? (
+                <FiX className="block h-6 w-6" />
+              ) : (
+                <FiMenu className="block h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -115,7 +190,9 @@ export default function Navbar() {
                   href={item.href}
                   onClick={(e) => handleNavigation(e, item.href, true)}
                   className={`block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors ${
-                    isActive(item.href) ? "text-blue-600 dark:text-blue-400" : ""
+                    isActive(item.href)
+                      ? "text-blue-600 dark:text-blue-400"
+                      : ""
                   }`}
                 >
                   {item.name}
@@ -123,10 +200,13 @@ export default function Navbar() {
               ))}
 
               <button
-                onClick={toggleLanguage}
+                onClick={() =>
+                  changeLanguage(currentLanguage === "en" ? "tr" : "en")
+                }
                 className="mt-2 px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded"
               >
-                {currentLang === "en" ? "Türkçe 🇹🇷" : "English 🇺🇸"}
+                {currentLanguage.toUpperCase()}{" "}
+                {currentLanguage === "en" ? "Türkçe 🇹🇷" : "English 🇺🇸"}
               </button>
             </div>
           </nav>
