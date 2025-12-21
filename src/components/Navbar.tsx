@@ -101,7 +101,7 @@ export default function Navbar() {
                 />
               </div>
               <span className="rtl:mr-3 ltr:ml-3 text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Homayoun Asghari
+                {i18n.language === 'fa' ? 'همایون اصغری' : 'Homayoun Asghari'}
               </span>
             </Link>
           </div>
@@ -130,7 +130,7 @@ export default function Navbar() {
               >
                 <FiGlobe className="h-5 w-5" />
                 <span className="rtl:mr-1 ltr:ml-1 text-sm inline-block w-[19px] text-center">
-                  {currentLanguage.toUpperCase()}
+                  {currentLanguage === 'fa' ? 'فا' : currentLanguage.toUpperCase()}
                 </span>
               </button>
 
@@ -194,11 +194,13 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                    className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+                    className="flex items-center justify-between w-full text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
                     aria-label="Change language"
                   >
-                    <FiGlobe className="h-5 w-5 rtl:ml-2 rtl:mr-0 ltr:mr-2" />
-                    <span>{languages.find(lang => lang.code === currentLanguage)?.name}</span>
+                    <FiGlobe className="h-5 w-5 flex-shrink-0" />
+                    <span className="rtl:mr-3 ltr:ml-3 flex-grow text-left rtl:text-right">
+                      {languages.find(lang => lang.code === currentLanguage)?.name}
+                    </span>
                   </button>
 
                   {isLanguageMenuOpen && (
