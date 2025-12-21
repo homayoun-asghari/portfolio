@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { FiMenu, FiX, FiGlobe } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
@@ -66,8 +67,11 @@ export default function Navbar() {
     i18n.changeLanguage(lng);
     setCurrentLanguage(lng);
     setIsLanguageMenuOpen(false);
-    // Force a re-render to update the UI with the new language
-    window.location.reload();
+    
+    // Update the URL to reflect the language change without full page reload
+    const url = new URL(window.location.href);
+    url.searchParams.set('lng', lng);
+    window.history.pushState({}, '', url);
   };
 
   const toggleMenu = () => {
@@ -78,13 +82,29 @@ export default function Navbar() {
     <header className="fixed w-full z-50 transition-all duration-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm bg-transparent">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-          >
-            Homayoun Asghari
-          </Link>
+          {/* Logo with Profile Picture */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center rtl:space-x-reverse space-x-3">
+              <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0 relative">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Profile"
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                  onError={(e) => {
+                    // Fallback to initials if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.src = `https://ui-avatars.com/api/?name=Homayoun+Asghari&background=2563eb&color=fff&size=128`;
+                  }}
+                  unoptimized={process.env.NODE_ENV !== 'production'}
+                />
+              </div>
+              <span className="rtl:mr-3 ltr:ml-3 text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Homayoun Asghari
+              </span>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -109,7 +129,7 @@ export default function Navbar() {
                 aria-label="Change language"
               >
                 <FiGlobe className="h-5 w-5" />
-                <span className="ml-1 text-sm">
+                <span className="rtl:mr-1 ltr:ml-1 text-sm inline-block w-[19px] text-center">
                   {currentLanguage.toUpperCase()}
                 </span>
               </button>
@@ -177,7 +197,7 @@ export default function Navbar() {
                     className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
                     aria-label="Change language"
                   >
-                    <FiGlobe className="h-5 w-5 mr-2" />
+                    <FiGlobe className="h-5 w-5 rtl:ml-2 rtl:mr-0 ltr:mr-2" />
                     <span>{languages.find(lang => lang.code === currentLanguage)?.name}</span>
                   </button>
 
