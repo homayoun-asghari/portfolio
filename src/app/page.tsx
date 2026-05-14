@@ -4,9 +4,9 @@ import {
   FiGithub,
   FiLinkedin,
   FiMail,
-  FiCode,
   FiMessageSquare,
 } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
@@ -20,21 +20,17 @@ export default function Home() {
       <section className="min-h-screen flex items-center">
         <div className="container mx-auto px-6 py-24 md:py-36">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {t("heroTitle")}
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-300">
-              {t("heroSubtitle")}
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-gray-700 dark:text-gray-300">
               {t("heroDescription")}
-            </p>
+            </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="#projects"
                 className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >
-                <FiCode className="w-5 h-5" />
                 {t("viewWork")}
               </Link>
               <Link
@@ -56,6 +52,15 @@ export default function Home() {
                 aria-label="GitHub"
               >
                 <FiGithub className="w-6 h-6" />
+              </a>
+              <a
+                href="https://x.com/HomayounAsghari"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                aria-label="X"
+              >
+                <FaXTwitter className="w-6 h-6" />
               </a>
               <a
                 href="https://www.linkedin.com/in/homayoun-asghari-b9769912a"
@@ -82,15 +87,12 @@ export default function Home() {
       <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t("about")}</h2>
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               {t("aboutParagraph1")}
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              {t("aboutParagraph2")}
-            </p>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              {t("aboutParagraph3")}
+              {t("aboutParagraph2")}
             </p>
           </div>
         </div>
@@ -104,15 +106,6 @@ export default function Home() {
           <div className="flex justify-center flex-wrap gap-8">
             <div className="w-full sm:w-[500px]">
               <ProjectCard
-                title={t("project1.title")}
-                description={t("project1.description")}
-                tags={["Next.js", "TypeScript", "Tailwind CSS"]}
-                githubLink="https://github.com/homayoun-asghari/portfolio"
-                liveLink="https://homayoun.me"
-              />
-            </div>
-            <div className="w-full sm:w-[500px]">
-              <ProjectCard
                 title={t("project2.title")}
                 description={t("project2.description")}
                 tags={[
@@ -123,7 +116,7 @@ export default function Home() {
                   "Bootstrap",
                 ]}
                 githubLink="https://github.com/homayoun-asghari/ecommerce"
-                liveLink="https://ecommerce.homayoun.me"
+                liveLink="https://ecommerce-qf9uoo8x4-homayouns-projects-a361fdfa.vercel.app/"
               />
             </div>
             <div className="w-full sm:w-[500px]">
@@ -131,8 +124,17 @@ export default function Home() {
                 title={t("project3.title")}
                 description={t("project3.description")}
                 tags={["TypeScript", "Next.js", "Supabase", "Tailwind CSS"]}
+                githubLink="https://github.com/homayoun-asghari/BOS"
+                liveLink="https://bos-orcin.vercel.app"
+              />
+            </div>
+            <div className="w-full sm:w-[500px]">
+              <ProjectCard
+                title={t("project1.title")}
+                description={t("project1.description")}
+                tags={["Next.js", "TypeScript", "Supabase", "Tailwind CSS"]}
                 githubLink="https://github.com/homayoun-asghari"
-                liveLink="https://bosos.io"
+                liveLink="https://road-mates-l45m.vercel.app"
               />
             </div>
           </div>
