@@ -16,9 +16,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Homayoun Asghari | Portfolio",
+  title: "Homayoun",
   description:
-    "Personal portfolio showcasing my projects and skills as a web developer",
+    "Homayoun — I build digital products.",
   icons: {
     icon: [
       { url: '/favicon/favicon.ico' },
@@ -50,19 +50,19 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Homayoun Asghari',
+    title: 'Homayoun',
     startupImage: '/favicon/apple-touch-icon.png',
   },
   other: {
     'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'apple-mobile-web-app-title': 'Homayoun Asghari',
+    'apple-mobile-web-app-title': 'Homayoun',
   },
   openGraph: {
-    title: "Homayoun Asghari | Portfolio",
+    title: "Homayoun",
     description:
-      "Personal portfolio of Homayoun Asghari, a Full Stack Web Developer",
+      "Homayoun — I build digital products.",
     type: "website",
     locale: "en_US",
   },

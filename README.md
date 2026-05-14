@@ -8,7 +8,7 @@
 
 A modern, responsive, and multilingual portfolio website built with Next.js, TypeScript, and Tailwind CSS. This portfolio showcases my projects, skills, and contact information in multiple languages.
 
-🔗 **Live Demo**: [portfolio-six-bay-53.vercel.app](portfolio-six-bay-53.vercel.app)
+🔗 **Live Demo**: [portfolio-six-bay-53.vercel.app](https://portfolio-six-bay-53.vercel.app)
 
 ![Portfolio Screenshot](/public/assets/home.png)
 
